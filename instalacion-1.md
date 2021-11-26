@@ -4,7 +4,7 @@ El nodo controlador y el worker serán el mismo.
 
 ### 1.- Descarga de k0s
 
-`curl -sSLf https://get.k0s.sh | sudo sh`
+`curl -sSLf https://get.k0s.sh | sh`
 
 Con este comando, primero se descarga un script y a continuación se ejecuta.
 
@@ -16,20 +16,18 @@ Podemos comprobar la versión instalada:
 
 ### 2.- Procedemos a instalarlo el cluster.
 
-sudo k0s install controller --single
+`k0s install controller --single`
 
 <img src="https://github.com/mftienda/K0s/raw/main/img/cluster-1nodo.png" alt="cluster-1nodo" />
 
 
-
-
 ### 3.- Iniciamos el clúster
 
-sudo k0s start
+`k0s start`
 
 ### 4.Chequeamos el servicio
 
-$ sudo k0s status
+`k0s status`
 
 Version: v1.22.4+k0s.1
 Process ID: 436
@@ -40,16 +38,24 @@ Access your cluster using kubectl
 
 ### 5.- k0s incluye kubectl
 
-$ sudo k0s kubectl get nodes -o wide
+`k0s kubectl get nodes -o wide`
 
-NAME   STATUS   ROLES    AGE    VERSION
-k0s    Ready    <none>   4m6s   v1.22.4-k0s1
+NAME                  STATUS   ROLES    AGE     VERSION       INTERNAL-IP      EXTERNAL-IP   OS-IMAGE                         KERNEL-VERSION   CONTAINER-RUNTIME
+debian200-k0s-1nodo   Ready    <none>   3m34s   v1.22.2+k0s   217.71.200.248   <none>        Debian GNU/Linux 11 (bullseye)   5.10.0-8-amd64   containerd://1.5.7
 
+ 
 ### 6.-Comprobaciones
  
 1.- Creamos un pod:
 
   `k0s kubectl run pod-nginx --image=nginx`
+ 
+ NAME            READY   STATUS    RESTARTS   AGE
+pod/pod-nginx   1/1     Running   0          19s
+
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   5m32s
+
  
 2.- Accedemos dentro del pod
   `k0s kubectl exec pod/pod-nginx -it -- /bin/bash`
@@ -58,15 +64,18 @@ k0s    Ready    <none>   4m6s   v1.22.4-k0s1
 3.- Creamos una pasarela: port-forward
    `k0s kubectl port-forward pod/pod-nginx 8081:80`
  
-4.- Con el navegador: IPPublica:8081
+4.- Utilizando la herramienta tmux, previamente instalada, dividimos la pantalla en dos:
+ 
+<img src="https://github.com/mftienda/K0s/raw/main/img/comprobacion-1.png" alt="comprobacion-1.png" />
+ 
   
-## Desinstalación de k0s
+## 7.- Si necesitamos desintalar k0s
     
 1.- Paramos el servicio:
-`sudo k0s stop`
+`k0s stop`
 
 2.- Limpiamos la instalación:
-`sudo k0s reset`
+`k0s reset`
 
 3.- Reiniciamos el sistema
-  
+  `reboot`
