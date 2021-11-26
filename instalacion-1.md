@@ -18,6 +18,8 @@ Podemos comprobar la versión instalada:
 
 sudo k0s install controller --single
 
+<img src="https://github.com/mftienda/K0s/raw/main/img/cluster-1nodo.png" alt="cluster-1nodo" />
+
 
 
 
