@@ -4,15 +4,21 @@ El nodo controlador y el worker serán el mismo.
 
 ### 1.- Descarga de k0s
 
-curl -sSLf https://get.k0s.sh | sudo sh
+`curl -sSLf https://get.k0s.sh | sudo sh`
 
 Con este comando, primero se descarga un script y a continuación se ejecuta.
 
 Realmente lo que ha hecho es copiar k0s en /usr/local/bin/k0s y le ha dado permisos 755 a dicho archivo.
 
-### 2.- Procedemos a instalarlo.
+Podemos comprobar la versión instalada:
+
+`k0s version`
+
+### 2.- Procedemos a instalarlo el cluster.
 
 sudo k0s install controller --single
+
+
 
 
 ### 3.- Iniciamos el clúster
